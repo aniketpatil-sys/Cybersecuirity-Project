@@ -1,0 +1,184 @@
+:root {
+    --neon-blue: #00f3ff;
+    --neon-red: #ff003c;
+    --neon-green: #00ff41; 
+    --bg-color: #030303;
+    --glass-bg: rgba(5, 8, 12, 0.75);
+    --border: rgba(0, 243, 255, 0.3);
+}
+
+body {
+    margin: 0; background-color: var(--bg-color); color: #e0e0e0;
+    font-family: 'Rajdhani', sans-serif; overflow-x: hidden;
+}
+
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #000; }
+::-webkit-scrollbar-thumb { background: var(--neon-blue); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--neon-green); }
+::selection { background: var(--neon-green); color: #000; }
+
+/* Matrix Canvas */
+#matrix-bg {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    z-index: -4; opacity: 0.25; 
+}
+
+.bg-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle at center, transparent 0%, #000000 100%);
+    z-index: -3;
+}
+
+.grid-bg {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-image: 
+        linear-gradient(rgba(0, 243, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 243, 255, 0.05) 1px, transparent 1px);
+    background-size: 40px 40px; z-index: -2;
+}
+
+.scanlines {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.15) 50%, rgba(0,0,0,0.15));
+    background-size: 100% 4px; z-index: 9999; pointer-events: none; opacity: 0.6;
+}
+
+.main-wrapper { max-width: 1100px; margin: 0 auto; padding: 40px 20px; position: relative; z-index: 1;}
+
+header { text-align: center; margin-bottom: 50px; }
+
+/* Glitch Effect CSS */
+.logo { 
+    font-family: 'Orbitron', sans-serif; font-size: 3.2rem; letter-spacing: 5px;
+    text-shadow: 0 0 10px var(--neon-blue), 0 0 20px rgba(0, 243, 255, 0.5); font-weight: 900;
+    position: relative; display: inline-block;
+}
+.logo span { color: var(--neon-blue); }
+
+.glitch::before, .glitch::after {
+    content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: transparent;
+}
+.glitch::before {
+    left: 2px; text-shadow: -2px 0 var(--neon-red);
+    clip: rect(24px, 550px, 90px, 0);
+    animation: glitch-anim 3s infinite linear alternate-reverse;
+}
+.glitch::after {
+    left: -2px; text-shadow: -2px 0 var(--neon-blue);
+    clip: rect(85px, 550px, 140px, 0);
+    animation: glitch-anim 2s infinite linear alternate-reverse;
+}
+@keyframes glitch-anim {
+    0% { clip: rect(10px, 9999px, 80px, 0); transform: skew(0.2deg); }
+    5% { clip: rect(40px, 9999px, 15px, 0); transform: skew(0.5deg); }
+    10% { clip: rect(70px, 9999px, 30px, 0); transform: skew(0.1deg); }
+    15% { clip: rect(20px, 9999px, 100px, 0); transform: skew(0.8deg); }
+    20% { clip: rect(0px, 9999px, 0px, 0); transform: skew(0deg); }
+    100% { clip: rect(0px, 9999px, 0px, 0); transform: skew(0deg); }
+}
+
+.subtitle { font-family: 'Fira Code', monospace; color: var(--neon-green); font-size: 1.1rem; margin-bottom: 10px; }
+.blink { animation: blinker 1s linear infinite; }
+@keyframes blinker { 50% { opacity: 0; } }
+
+.tool-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
+
+.tool-card {
+    background: var(--glass-bg); backdrop-filter: blur(5px);
+    border: 1px solid var(--border); border-top: 3px solid var(--neon-blue);
+    border-radius: 4px; padding: 25px; transition: all 0.3s ease-in-out; 
+    text-align: center; box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.8);
+}
+.tool-card:hover { 
+    border-color: var(--neon-blue); transform: translateY(-5px); 
+    box-shadow: 0 0 25px rgba(0, 243, 255, 0.15), inset 0 0 20px rgba(0, 243, 255, 0.1); 
+}
+
+h3 { font-family: 'Orbitron', sans-serif; color: #fff; font-size: 1.1rem; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px; }
+.card-icon { font-size: 2.5rem; margin-bottom: 15px; filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.2));}
+
+input, select, textarea {
+    width: 100%; background: rgba(0,0,0,0.6); border: 1px solid #333;
+    padding: 12px; color: var(--neon-green); border-radius: 2px; 
+    margin-bottom: 15px; box-sizing: border-box; font-family: 'Fira Code', monospace; 
+    font-size: 0.85rem; transition: 0.3s; outline: none;
+}
+input:focus, select:focus, textarea:focus { border-color: var(--neon-blue); box-shadow: inset 0 0 10px rgba(0, 243, 255, 0.2); }
+input::placeholder, textarea::placeholder { color: #444; }
+
+button {
+    width: 100%; padding: 12px; background: rgba(0, 243, 255, 0.05); color: var(--neon-blue);
+    border: 1px solid var(--neon-blue); border-radius: 2px; font-weight: bold; cursor: pointer;
+    font-family: 'Orbitron', sans-serif; font-size: 0.85rem; transition: all 0.3s;
+    letter-spacing: 1.5px; text-transform: uppercase;
+}
+button:hover { background: var(--neon-blue); color: #000; box-shadow: 0 0 15px var(--neon-blue); }
+
+.btn-red { border-color: var(--neon-red); color: var(--neon-red); background: rgba(255, 0, 60, 0.05); }
+.btn-red:hover { background: var(--neon-red); color: #fff; box-shadow: 0 0 15px var(--neon-red); }
+
+.btn-cyan { border-color: #00bcd4; color: #00bcd4; background: rgba(0, 188, 212, 0.05); }
+.btn-cyan:hover { background: #00bcd4; color: #000; box-shadow: 0 0 15px #00bcd4; }
+
+.btn-outline { background: transparent; border: 1px dashed var(--neon-blue); }
+
+.output-box {
+    margin-top: 15px; padding: 15px; background: rgba(0, 0, 0, 0.8);
+    border-radius: 2px; font-family: 'Fira Code', monospace; font-size: 0.8rem;
+    color: var(--neon-green); border-left: 3px solid var(--neon-green); 
+    word-break: break-all; text-align: left; position: relative;
+    box-shadow: inset 0 0 15px rgba(0, 255, 65, 0.05);
+}
+.output-box::before { content: "> root@cybershield:~#"; display: block; color: #555; margin-bottom: 5px; font-size: 0.7rem; }
+
+.divider { font-size: 0.75rem; color: #555; margin: 5px 0 15px 0; font-weight: bold; font-family: 'Orbitron', sans-serif; }
+.flex-row { display: flex; gap: 10px; margin-bottom: 10px; }
+.flex-row button { margin-bottom: 0; }
+
+footer { 
+    text-align: center; margin-top: 50px; font-size: 0.85rem; 
+    color: #444; font-family: 'Fira Code', monospace;
+    border-top: 1px dashed #222; padding-top: 20px;
+}
+.status-online { color: var(--neon-green); text-shadow: 0 0 10px var(--neon-green); font-weight: bold;}
+
+/* ==========================================
+   TERMINAL BOOT SCREEN STYLES
+   ========================================== */
+#boot-screen {
+    position: fixed; 
+    top: 0; left: 0; 
+    width: 100vw; height: 100vh;
+    background-color: #030303; 
+    z-index: 999999;
+    display: flex; 
+    flex-direction: column; 
+    justify-content: flex-start;
+    padding: 30px; 
+    font-family: 'Fira Code', monospace; 
+    font-size: 1rem;
+    color: var(--neon-green); 
+    box-sizing: border-box;
+    transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+}
+
+#boot-text p { 
+    margin: 5px 0; 
+    text-shadow: 0 0 5px var(--neon-green); 
+}
+
+.cursor { 
+    display: inline-block; 
+    width: 10px; height: 1.2rem; 
+    background: var(--neon-green); 
+    animation: blinker 1s infinite; 
+    margin-top: 5px; 
+}
+
+.hidden-boot { 
+    opacity: 0; 
+    transform: scale(1.05); 
+    pointer-events: none; 
+}

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberShield | Professional VAPT Suite</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Orbitron:wght@400..900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+</head>
+<body>
+
+    <div id="boot-screen">
+        <div id="boot-text"></div>
+        <div class="cursor">_</div>
+    </div>
+    <canvas id="matrix-bg"></canvas>
+    <div class="bg-overlay"></div>
+    <div class="grid-bg"></div>
+    <div class="scanlines"></div>
+    
+    <div class="main-wrapper" style="opacity: 0;"> <header>
+            <div class="logo glitch" data-text="CYBERSHIELD">🛡️ CYBER<span>SHIELD</span></div>
+            <p class="subtitle">>_ SYSTEM ACCESS GRANTED <span class="blink">_</span></p>
+        </header>
+
+        <div class="tool-grid">
+            <div class="tool-card">
+                <div class="card-icon">🔐</div>
+                <h3>Hash Generator</h3>
+                <input type="text" id="hashText" placeholder="Enter text to hash...">
+                <div class="divider">OR</div>
+                <input type="file" id="hashFile">
+                <select id="hashAlgo">
+                    <option value="SHA256" selected>SHA-256 (Standard)</option>
+                    <option value="SHA512">SHA-512 (High Security)</option>
+                    <option value="SHA3">SHA-3 (Keccak)</option>
+                    <option value="MD5">MD5 (Legacy)</option>
+                    <option value="SHA1">SHA-1 (Legacy)</option>
+                </select>
+                <button onclick="handleHash()">GENERATE HASH</button>
+                <div id="hashResult" class="output-box">Waiting for input...</div>
+            </div>
+
+            <div class="tool-card">
+                <div class="card-icon">⚖️</div>
+                <h3>Integrity Matcher</h3>
+                <label>Source File:</label>
+                <input type="file" id="matchFile1">
+                <label>Comparison File:</label>
+                <input type="file" id="matchFile2">
+                <button onclick="compareFiles()" class="btn-cyan">COMPARE INTEGRITY</button>
+                <div id="matchResult" class="output-box">Upload two files...</div>
+            </div>
+
+            <div class="tool-card">
+                <div class="card-icon">🎯</div>
+                <h3>URL Threat Scanner</h3>
+                <input type="text" id="urlInput" placeholder="https://suspicious-site.com">
+                <button onclick="scanURL()" class="btn-red">RUN SECURITY SCAN</button>
+                <div id="urlResult" class="output-box">Scanner idle...</div>
+            </div>
+
+            <div class="tool-card">
+                <div class="card-icon">🔑</div>
+                <h3>Password Strength</h3>
+                <input type="password" id="passInput" oninput="checkPassword()" placeholder="Enter test password...">
+                <div id="passResult" class="output-box">Strength: -</div>
+            </div> 
+            
+            <div class="tool-card">
+                <div class="card-icon">🔄</div>
+                <h3>Base64 Encoder/Decoder</h3>
+                <textarea id="base64Input" placeholder="Enter raw text or Base64..."></textarea>
+                <div class="flex-row">
+                    <button onclick="base64Action('encode')">ENCODE</button>
+                    <button onclick="base64Action('decode')" class="btn-outline">DECODE</button>
+                </div>
+                <div id="base64Result" class="output-box">Result will appear here...</div>
+            </div>
+        </div>
+        
+        <footer>
+            ROOT ACCESS: <span class="status-online">AUTHORIZED & SECURE</span> | By: Aniket Patil
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
