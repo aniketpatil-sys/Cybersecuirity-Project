@@ -48,7 +48,7 @@ body {
 
 header { text-align: center; margin-bottom: 50px; }
 
-/* Glitch Effect CSS */
+
 .logo { 
     font-family: 'Orbitron', sans-serif; font-size: 3.2rem; letter-spacing: 5px;
     text-shadow: 0 0 10px var(--neon-blue), 0 0 20px rgba(0, 243, 255, 0.5); font-weight: 900;
@@ -144,9 +144,7 @@ footer {
 }
 .status-online { color: var(--neon-green); text-shadow: 0 0 10px var(--neon-green); font-weight: bold;}
 
-/* ==========================================
-   TERMINAL BOOT SCREEN STYLES
-   ========================================== */
+
 #boot-screen {
     position: fixed; 
     top: 0; left: 0; 
@@ -181,4 +179,5 @@ footer {
     opacity: 0; 
     transform: scale(1.05); 
     pointer-events: none; 
+
 }
